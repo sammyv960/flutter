@@ -1,0 +1,16 @@
+[core]
+	excludesfile = /Users/iscity/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Users/iscity/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = sammy
+	email = 
+[commit]
+	template = /Users/iscity/.stCommitMsg
+[credential]
+    username = sammyv960
+	helper = osxkeychain
