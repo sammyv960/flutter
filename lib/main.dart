@@ -1,11 +1,22 @@
 import "package:flutter/material.dart";
+// import 'package:flutter/services.dart';
 
 import './models/transaction.dart';
 import './widgets/transactionAdd.dart';
 import './widgets/transactionList.dart';
 import './widgets/chart/chart.dart';
 
-void main() => runApp(Main());
+void main() {
+  // Start Only allow portrait orientation
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
+  // End
+
+  runApp(Main());
+}
 
 class Main extends StatefulWidget {
   @override
@@ -16,7 +27,6 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Personal Expenses",
       theme: ThemeData(
         primarySwatch:
             Colors.red, // different shade generated from a single color
@@ -53,24 +63,48 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    // Transaction(
-    //   id: "t1",
-    //   title: "Adidas",
-    //   amount: 69.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: "g1",
-    //   title: "Groceries",
-    //   amount: 18.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: "g2",
-    //   title: "Groceries",
-    //   amount: 37.99,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: "t1",
+      title: "Adidas",
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "g1",
+      title: "Groceries",
+      amount: 18.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "g2",
+      title: "Groceries",
+      amount: 37.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "g2",
+      title: "Groceries",
+      amount: 37.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "g2",
+      title: "Groceries",
+      amount: 37.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "g2",
+      title: "Groceries",
+      amount: 37.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: "g2",
+      title: "Groceries",
+      amount: 37.99,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -120,24 +154,36 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Personal Expenses'),
+      // actions: [
+      //   IconButton(
+      //     icon: Icon(Icons.add),
+      //     onPressed: () => _showModal(context),
+      //   )
+      // ],
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Personal Expenses'),
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(Icons.add),
-        //     onPressed: () => _showModal(context),
-        //   )
-        // ],
-      ),
-      body: Container(
-        child: Column(
-          children: [
-            Chart(_recentTransactions),
-            SizedBox(height: 20),
-            TransactionList(_transactions, _deleteTransactionController),
-          ],
-        ),
+      appBar: appBar,
+      body: Column(
+        children: [
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top -
+                    appBar.preferredSize.height) *
+                0.3, // 30% of full height - height of status bar - height of appBar
+            child: Chart(_recentTransactions),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 20),
+            height: (MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top -
+                    appBar.preferredSize.height) *
+                0.7,
+            child: TransactionList(_transactions, _deleteTransactionController),
+          ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(

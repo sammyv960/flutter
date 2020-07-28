@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
+// import "dart:io";
+// stderr.writeln('print me');
 
 import "../../models/transaction.dart";
 import "./chartBar.dart";
@@ -42,32 +44,38 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(groupedTransactionValues);
     return Card(
       elevation: 6,
-      margin: EdgeInsets.all(20),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
+      margin: EdgeInsets.all(15),
+      child: Container(
+        padding: EdgeInsets.all(10),
         child: Column(
           children: [
-            Text("Satistic of this week"),
-            SizedBox(
-              height: 10,
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                "Satistic of this week",
+                style: Theme.of(context).textTheme.title,
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: groupedTransactionValues.map((data) {
-                return Flexible(
-                  fit: FlexFit.tight,
-                  child: ChartBar(
-                    data["day"],
-                    data["amount"],
-                    totalSpending > 0
-                        ? (data["amount"] as double) / totalSpending
-                        : 0.0,
-                  ),
-                );
-              }).toList(),
+            Expanded(
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: groupedTransactionValues.map((data) {
+                    return Flexible(
+                      fit: FlexFit.tight,
+                      child: ChartBar(
+                        data["day"],
+                        data["amount"],
+                        totalSpending > 0
+                            ? (data["amount"] as double) / totalSpending
+                            : 0.0,
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
             ),
           ],
         ),

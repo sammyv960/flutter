@@ -12,8 +12,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
-      // margin: EdgeInsets.all(20),
+      height: double.infinity,
       child: transactions.isEmpty
           ? NoRecord()
           : ListView.builder(
@@ -65,7 +64,6 @@ class TransactionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      // color: Colors.lightGreen,
       child: ListTile(
         leading: Container(
           margin: EdgeInsets.symmetric(
@@ -92,10 +90,6 @@ class TransactionCard extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .title, // reference style from the theme
-          // style: TextStyle(
-          //   fontWeight: FontWeight.bold,
-          //   fontSize: 16,
-          // ),
         ),
         subtitle: Text(
           DateFormat("yyyy/MM/dd HH:mm:ss").format(date),
