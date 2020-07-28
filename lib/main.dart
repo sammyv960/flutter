@@ -164,21 +164,24 @@ class _MyHomePageState extends State<MyHomePage> {
       // ],
     );
 
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = mediaQuery.orientation == Orientation.landscape; // for checking on orientation
+
     return Scaffold(
       appBar: appBar,
       body: Column(
         children: [
           Container(
-            height: (MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top -
+            height: (mediaQuery.size.height -
+                    mediaQuery.padding.top -
                     appBar.preferredSize.height) *
                 0.3, // 30% of full height - height of status bar - height of appBar
             child: Chart(_recentTransactions),
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 20),
-            height: (MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top -
+            height: (mediaQuery.size.height -
+                    mediaQuery.padding.top -
                     appBar.preferredSize.height) *
                 0.7,
             child: TransactionList(_transactions, _deleteTransactionController),

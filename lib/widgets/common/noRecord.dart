@@ -8,18 +8,21 @@ class NoRecord extends StatelessWidget {
       children: [
         Column(
           children: [
-            Container(
-              height: 200,
-              child: Image.asset(
-                "assets/images/waiting.png",
-                fit: BoxFit.cover,
+            Flexible(
+              child: Container(
+                height: 200,
+                child: Image.asset(
+                  "assets/images/waiting.png",
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            SizedBox(
-              // use for spacing...
-              height: 20,
+            Flexible(
+              child: Container(
+                margin: EdgeInsets.only(top:15),
+                child: Text("No Record Found"),
+              ),
             ),
-            Text("No Record Found"),
           ],
         ),
       ],

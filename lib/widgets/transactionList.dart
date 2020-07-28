@@ -98,12 +98,21 @@ class TransactionCard extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        trailing: IconButton(
-          icon: Icon(Icons.clear),
-          color: Theme.of(context).errorColor,
-          // onPressed: deleteTransactionController, // if no argument needed
-          onPressed: () => deleteTransactionController(id), // if argument needed to pass in
-        ),
+        trailing: MediaQuery.of(context).size.width > 500
+            ? FlatButton.icon(
+                icon: Icon(Icons.clear),
+                label: Text("Clear"),
+                // color: Color(0XFFF5F5F5),
+                textColor: Theme.of(context).errorColor,
+                onPressed: () => deleteTransactionController(id),
+              )
+            : IconButton(
+                icon: Icon(Icons.clear),
+                color: Theme.of(context).errorColor,
+                // onPressed: deleteTransactionController, // if no argument needed
+                onPressed: () => deleteTransactionController(
+                    id), // if argument needed to pass in
+              ),
         // isThreeLine: true, // three line space height
         // onTap: () {},
       ),

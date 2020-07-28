@@ -15,6 +15,7 @@ class TransactionAdd extends StatefulWidget {
 class _TransactionAddState extends State<TransactionAdd> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+  final _datePickerController = TextEditingController();
   DateTime _selectedDate;
 
   void submitData() {
@@ -37,74 +38,84 @@ class _TransactionAddState extends State<TransactionAdd> {
   void _showDatePicker() {
     showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: _selectedDate == null ? DateTime.now() : _selectedDate,
       firstDate: DateTime(2020),
       lastDate: DateTime.now(),
     ).then((date) {
-      if(date == null){
+      if (date == null) {
         return;
       }
 
       setState(() {
         _selectedDate = date;
+        _datePickerController.text = DateFormat("yyyy/MM/dd").format(_selectedDate).toString();
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          TextField(
-            decoration: InputDecoration(
-              labelText: "Title",
-            ),
-            controller: _titleController,
-            onSubmitted: (_) => submitData(),
+    print(_selectedDate);
+    return SingleChildScrollView(
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.only(
+            left: 10,
+            top: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
           ),
-          TextField(
-            decoration: InputDecoration(
-              labelText: "Amount",
-            ),
-            controller: _amountController,
-            keyboardType: TextInputType.number,
-            onSubmitted: (_) => submitData(),
-          ),
-          Container(
-            height: 80,
-            child: TextFormField(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+            TextField(
               decoration: InputDecoration(
-                labelText: "Date",
-                icon: Icon(Icons.calendar_today)
+                labelText: "Title",
               ),
-              readOnly: true,
-              keyboardType: TextInputType.datetime,
-              onTap: _showDatePicker,
-              // initialValue: _selectedDate == null ? DateFormat("yyyy/MM/dd").format(_selectedDate) : ""
+              controller: _titleController,
+              onSubmitted: (_) => submitData(),
+            ),
+            TextField(
+              decoration: InputDecoration(
+                labelText: "Amount",
+              ),
+              controller: _amountController,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => submitData(),
+            ),
+            Container(
+                height: 80,
+                child: 
+                TextFormField(
+                  decoration: InputDecoration(
+                      labelText: "Date", icon: Icon(Icons.calendar_today)),
+                  readOnly: true,
+                  keyboardType: TextInputType.datetime,
+                  onTap: _showDatePicker,
+                  controller: _datePickerController,
+                  // initialValue: _selectedDate == null ? DateFormat("yyyy/MM/dd").format(_selectedDate) : ""
+                  // initialValue: _selectedDate == null ? _selectedDate : ""
+                )
+
+                // Row(children: [
+                //   Text("Date: "),
+                //   Text(_selectedDate == null ? "No Date Chosen!" : DateFormat("yyyy/MM/dd").format(_selectedDate)),
+                //   FlatButton(
+                //     child: Text(
+                //       "Pick Date",
+                //       style: TextStyle(fontWeight: FontWeight.bold),
+                //     ),
+                //     textColor: Theme.of(context).primaryColor,
+                //     onPressed: _showDatePicker,
+                //   )
+                // ]),
+                ),
+            RaisedButton(
+              child: Text("Add"),
+              color: Theme.of(context).primaryColor,
+              textColor: Theme.of(context).textTheme.button.color,
+              onPressed: submitData,
             )
-            
-            // Row(children: [
-            //   Text("Date: "),
-            //   Text(_selectedDate == null ? "No Date Chosen!" : DateFormat("yyyy/MM/dd").format(_selectedDate)),
-            //   FlatButton(
-            //     child: Text(
-            //       "Pick Date",
-            //       style: TextStyle(fontWeight: FontWeight.bold),
-            //     ),
-            //     textColor: Theme.of(context).primaryColor,
-            //     onPressed: _showDatePicker,
-            //   )
-            // ]),
-          ),
-          RaisedButton(
-            child: Text("Add"),
-            color: Theme.of(context).primaryColor,
-            textColor: Theme.of(context).textTheme.button.color,
-            onPressed: submitData,
-          )
-        ]),
+          ]),
+        ),
       ),
     );
   }
