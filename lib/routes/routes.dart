@@ -5,20 +5,21 @@ const Routes = const [
     iD: "ICON",
     route: "/icon",
     routeName: "Icon",
-    icon: Icons.lightbulb_outline,
+    // icon: Icons.lightbulb_outline,
     parentID: "GENERAL",
   ),
   Route(
     iD: "NAVIGATIONS",
     route: "/navigations",
     routeName: "Tabs, Navigations",
+    // icon: Icons.lightbulb_outline,
     parentID: "GENERAL",
   ),
   Route(
     iD: "PROFILE",
     route: "/profile",
     routeName: "Profile",
-    icon: Icons.person,
+    // icon: Icons.person,
     parentID: "PROFILE",
   ),
 ];

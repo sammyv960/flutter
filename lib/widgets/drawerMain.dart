@@ -9,6 +9,8 @@ class DrawerMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final mediaQuery = MediaQuery.of(context);
+
     return Drawer(
       child: Column(children: [
         // HEADER
@@ -30,7 +32,7 @@ class DrawerMain extends StatelessWidget {
 
         // HOMEPAGE ITEMS
         Container(
-          padding: EdgeInsets.symmetric(vertical: 10),
+          // padding: EdgeInsets.symmetric(vertical: 10),
           child: Column(
             children: [
               MenuListTile(
@@ -44,18 +46,28 @@ class DrawerMain extends StatelessWidget {
         ),
 
         // MENU ITEMS
-        Container(
-
-          height: double.maxFinite,
-          color: Colors.lightBlue,
-          // child: ListView.builder(
-          //   itemBuilder: (ctx, index) => Center(
-          //     child: Flexible(
-          //       child: Text("hi"),
-          //     ),
-          //   ),
-          //   itemCount: routesParent.length,
-          // ),
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: (ctx, index) => Column(children: [
+              MenuListTile(
+                title: routesParent[index].parentName,
+                icon: routesParent[index].icon,
+              ),
+              Column(
+                children: routes.where((route) {
+                  return route.parentID.contains(routesParent[index].iD);
+                }).map((route) {
+                  return MenuListTile(
+                    title: route.routeName,
+                    icon: route.icon,
+                    tappable: true,
+                    route: route.route,
+                  );
+                }).toList(),
+              )
+            ]),
+            itemCount: routesParent.length,
+          ),
         ),
 
         // buildListTile(context, "Forms", Icons.input, "/"),
@@ -81,13 +93,9 @@ class MenuListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        icon != null
-            ? icon
-            : Icon(
-                Icons.mode_edit,
-                color: Colors.transparent,
-              ),
+        icon != null ? icon : Icons.mode_edit,
         size: 26,
+        color: icon != null ? Colors.blue.shade400 : Colors.transparent
       ),
       title: Text(
         title,
